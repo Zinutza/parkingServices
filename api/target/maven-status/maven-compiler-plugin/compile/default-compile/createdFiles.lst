@@ -1,0 +1,4 @@
+org\zina\api\Application.class
+org\zina\api\controller\HealthController.class
+org\zina\api\controller\UserController.class
+org\zina\api\exception\ExceptionController.class
