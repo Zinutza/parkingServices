@@ -11,6 +11,8 @@ public class UserDao {
 
     private static final String READ_USER = "SELECT * FROM users WHERE id = ?";
 
+    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -18,4 +20,7 @@ public class UserDao {
         return (User) this.jdbcTemplate.queryForObject(READ_USER, new Object[] {id}, new BeanPropertyRowMapper(User.class));
     }
 
+    public User create(User user) {
+
+    }
 }

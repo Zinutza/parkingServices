@@ -14,4 +14,8 @@ public class UserService {
     public User read(Long id) {
         return dao.read(id);
     }
+
+    public User create(User user) {
+        return dao.create(user);
+    }
 }
