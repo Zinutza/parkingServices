@@ -12,4 +12,6 @@ public class User {
     private String passwordHash;
 
     private String salt;
+
+    private String passwordClearText;
 }
