@@ -17,7 +17,7 @@ public class UserService {
 
     public User read(Long id) {
         User user = dao.read(id);
-        clearPasswordDetails(user);
+        user.clearPasswordDetails();
         return user;
     }
 
@@ -25,14 +25,10 @@ public class UserService {
     public User create(User user) {
         encryptPassword(user);
         User createdUser = dao.create(user);
-        clearPasswordDetails(user);
+        user.clearPasswordDetails();
         return createdUser;
     }
 
-    private void clearPasswordDetails(User user) {
-        user.setPasswordHash(null);
-        user.setSalt(null);
-    }
 
     private void encryptPassword(User user) {
         String salt = encryptionService.getSalt();

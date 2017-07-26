@@ -14,4 +14,10 @@ public class User {
     private String salt;
 
     private String passwordClearText;
+
+    public void clearPasswordDetails() {
+        this.setPasswordHash(null);
+        this.setSalt(null);
+        this.setPasswordClearText(null);
+    }
 }
