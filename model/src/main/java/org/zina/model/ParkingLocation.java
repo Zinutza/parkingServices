@@ -1,7 +1,17 @@
 package org.zina.model;
 
-/**
- * Created by Zina on 07/08/2017.
- */
+import lombok.Data;
+
+@Data
 public class ParkingLocation {
+
+    private Long id;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    private ParkingType type;
+
+    private String address;
 }

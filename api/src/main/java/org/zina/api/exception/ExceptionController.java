@@ -11,5 +11,7 @@ public class ExceptionController {
 
     @ResponseStatus(value= HttpStatus.NOT_FOUND) //404
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public void notFound() {}
+    public void notFound(EmptyResultDataAccessException e) {
+        System.out.println("Resource not found : "  + e.getMessage());
+    }
 }
