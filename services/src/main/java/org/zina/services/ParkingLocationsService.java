@@ -29,4 +29,7 @@ public class ParkingLocationsService {
     }
 
 
+    public ParkingLocation create(ParkingLocation parkingLocation) {
+        return parkingLocationDao.create(parkingLocation);
+    }
 }

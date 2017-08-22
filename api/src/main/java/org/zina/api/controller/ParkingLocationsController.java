@@ -2,16 +2,16 @@ package org.zina.api.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.zina.model.ParkingLocation;
 import org.zina.services.ParkingLocationsService;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class ParkingLocationsController {
@@ -25,5 +25,12 @@ public class ParkingLocationsController {
             @RequestParam("latitude") Double latitude,
             @RequestParam("longitude") Double longitude) {
         return parkingLocationsService.queryParkingByLocation(latitude, longitude);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "parkinglocations", method = POST)
+    public ResponseEntity create(@RequestBody ParkingLocation parkingLocation) {
+        ParkingLocation createdParkingLocation = parkingLocationsService.create(parkingLocation);
+        return new ResponseEntity<ParkingLocation>(createdParkingLocation, CREATED);
     }
 }
