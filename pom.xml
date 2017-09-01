@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <!--
-       To build & run project : mvn spring-boot:run
+       To run project : mvn spring-boot:run
        Project will be available at : http://localhost:8081/parking/health
    -->
 
