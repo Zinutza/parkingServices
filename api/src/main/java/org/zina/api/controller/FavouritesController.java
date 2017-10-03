@@ -37,8 +37,8 @@ public class FavouritesController {
 
     @ResponseBody
     @RequestMapping(value = "favourites", method = DELETE)
-    public ResponseEntity delete(@RequestBody FavouriteLocation favouriteLocation) {
-        favouritesService.delete(favouriteLocation);
+    public ResponseEntity delete(@RequestParam("userId") Long userId, @RequestParam("locationId") Long locationId) {
+        favouritesService.delete(new FavouriteLocation(userId, locationId));
         return new ResponseEntity(NO_CONTENT);
     }
 }
