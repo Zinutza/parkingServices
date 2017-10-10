@@ -1,6 +1,7 @@
 package org.zina.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,18 +41,22 @@ public class UserDao {
     }
 
     public User create(final User user) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        this.jdbcTemplate.update(new PreparedStatementCreator(){
-            public PreparedStatement createPreparedStatement(Connection connection)
-                    throws SQLException {
-                PreparedStatement ps =connection.prepareStatement(CREATE_USER, RETURN_GENERATED_KEYS);
-                ps.setString(1, user.getEmail());
-                ps.setString(2, user.getPasswordHash());
-                ps.setString(3, user.getSalt());
-                return ps;
-            }
-        },keyHolder);
-        user.setId((Long) keyHolder.getKeys().get("id"));
-        return user;
+        try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            this.jdbcTemplate.update(new PreparedStatementCreator() {
+                public PreparedStatement createPreparedStatement(Connection connection)
+                        throws SQLException {
+                    PreparedStatement ps = connection.prepareStatement(CREATE_USER, RETURN_GENERATED_KEYS);
+                    ps.setString(1, user.getEmail());
+                    ps.setString(2, user.getPasswordHash());
+                    ps.setString(3, user.getSalt());
+                    return ps;
+                }
+            }, keyHolder);
+            user.setId((Long) keyHolder.getKeys().get("id"));
+            return user;
+        } catch(DuplicateKeyException e) {
+            throw new IllegalStateException("USER_EXISTS", e);
+        }
     }
 }

@@ -14,4 +14,10 @@ public class ExceptionController {
     public void notFound(EmptyResultDataAccessException e) {
         System.out.println("Resource not found : "  + e.getMessage());
     }
+
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST) //400
+    @ExceptionHandler(IllegalStateException.class)
+    public String illegalState(IllegalStateException e) {
+        return e.getMessage();
+    }
 }
