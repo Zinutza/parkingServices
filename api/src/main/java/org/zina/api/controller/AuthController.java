@@ -21,11 +21,11 @@ public class AuthController {
 
     @ResponseBody
     @RequestMapping(value="auth", method = POST)
-    public ResponseEntity<User> authenticateUser(@RequestBody User user) {
+    public ResponseEntity authenticateUser(@RequestBody User user) {
         User storedUser = authService.authenticateUser(user);
         if(storedUser != null) {
             return new ResponseEntity<User>(storedUser, OK);
         }
-        return new ResponseEntity<User>(UNAUTHORIZED);
+        return new ResponseEntity<String>("NO_USER", UNAUTHORIZED);
     }
 }
