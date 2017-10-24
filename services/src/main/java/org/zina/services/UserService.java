@@ -15,13 +15,6 @@ public class UserService {
     @Autowired
     private EncryptionService encryptionService;
 
-    public User read(Long id) {
-        User user = dao.read(id);
-        user.clearPasswordDetails();
-        return user;
-    }
-
-
     public User create(User user) {
         encryptPassword(user);
         User createdUser = dao.create(user);

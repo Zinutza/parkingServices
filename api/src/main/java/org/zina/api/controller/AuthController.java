@@ -19,6 +19,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    // Authenticate user
     @ResponseBody
     @RequestMapping(value="auth", method = POST)
     public ResponseEntity authenticateUser(@RequestBody User user) {

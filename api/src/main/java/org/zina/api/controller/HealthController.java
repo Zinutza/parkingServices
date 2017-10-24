@@ -9,6 +9,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class HealthController {
 
+    // Backend healthcheck // Ignore this one
     @ResponseBody
     @RequestMapping(value = "health", method = GET)
     public String checkHealth() {

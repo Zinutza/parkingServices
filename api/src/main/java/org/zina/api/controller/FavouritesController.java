@@ -22,12 +22,14 @@ public class FavouritesController {
     @Autowired
     private FavouritesService favouritesService;
 
+    // List of favourites
     @ResponseBody
     @RequestMapping(value="favourites", method = GET)
     public List<ParkingLocation> list(@RequestParam("userId") Long userId) {
         return favouritesService.list(userId);
     }
 
+    // Create a favourite
     @ResponseBody
     @RequestMapping(value = "favourites", method = POST)
     public ResponseEntity create(@RequestBody FavouriteLocation favouriteLocation) {
@@ -35,6 +37,7 @@ public class FavouritesController {
         return new ResponseEntity<FavouriteLocation>(createdFavouriteLocation, CREATED);
     }
 
+    // Delete a favourite
     @ResponseBody
     @RequestMapping(value = "favourites", method = DELETE)
     public ResponseEntity delete(@RequestParam("userId") Long userId, @RequestParam("locationId") Long locationId) {

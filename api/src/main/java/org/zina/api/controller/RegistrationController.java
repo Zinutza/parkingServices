@@ -17,7 +17,7 @@ public class RegistrationController {
     @Autowired
     private UserService service;
 
-
+    // Register new user
     @ResponseBody
     @RequestMapping(value = "register", method = POST)
     public User create(@RequestBody RegistrationDetails registrationDetails) {

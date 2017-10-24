@@ -19,6 +19,7 @@ public class ParkingLocationsController {
     @Autowired
     private ParkingLocationsService parkingLocationsService;
 
+    // Query nearby parking
     @ResponseBody
     @RequestMapping(value="parkinglocations", method = GET)
     public List<ParkingLocation> queryParkingByLocation(
@@ -27,6 +28,7 @@ public class ParkingLocationsController {
         return parkingLocationsService.queryParkingByLocation(latitude, longitude);
     }
 
+    // Create new parking location
     @ResponseBody
     @RequestMapping(value = "parkinglocations", method = POST)
     public ResponseEntity create(@RequestBody ParkingLocation parkingLocation) {
