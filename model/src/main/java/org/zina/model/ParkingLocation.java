@@ -14,4 +14,6 @@ public class ParkingLocation {
     private ParkingType type;
 
     private String address;
+
+    private Long creatorId;
 }

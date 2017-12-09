@@ -19,6 +19,7 @@ public class FavouritesDao {
     private static final String LIST_FAVOURITES = "select locations.id, latitude, longitude, type, address from favourites join locations ON favourites.location_id = locations.id where user_id = ? ;";
     private static final String CREATE_FAVOURITE = "INSERT INTO favourites VALUES (?, ?);";
     private static final String DELETE_FAVOURITE = "DELETE FROM favourites WHERE user_id = ? AND location_id = ?";
+    private static final String DELETE_ALL_FAVOURITES = "DELETE FROM favourites WHERE location_id = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -54,6 +55,17 @@ public class FavouritesDao {
                 PreparedStatement ps = connection.prepareStatement(DELETE_FAVOURITE);
                 ps.setLong(1, favouriteLocation.getUserId());
                 ps.setLong(2, favouriteLocation.getLocationId());
+                return ps;
+            }
+        });
+    }
+
+    public void delete(final Long locationId) {
+        this.jdbcTemplate.update(new PreparedStatementCreator(){
+            public PreparedStatement createPreparedStatement(Connection connection)
+                    throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(DELETE_ALL_FAVOURITES);
+                ps.setLong(1, locationId);
                 return ps;
             }
         });

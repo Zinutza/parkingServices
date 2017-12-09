@@ -20,7 +20,8 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class ParkingLocationDao {
 
     private static final String QUERY_BY_GRID = "SELECT * FROM locations WHERE latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <=?;";
-    private static final String CREATE_LOCATION = "INSERT INTO locations (id, latitude, longitude, type, address) VALUES (nextval('location_id_sequence'), ?, ?, ?,?);";
+    private static final String CREATE_LOCATION = "INSERT INTO locations (id, latitude, longitude, type, address, creator_id) VALUES (nextval('location_id_sequence'), ?,?,?,?,?);";
+    private static final String DELETE_LOCATION = "DELETE FROM locations WHERE id = ?;";
 
 
     @Autowired
@@ -51,10 +52,22 @@ public class ParkingLocationDao {
                 ps.setDouble(2, parkingLocation.getLongitude());
                 ps.setString(3, parkingLocation.getType().toString());
                 ps.setString(4, parkingLocation.getAddress());
+                ps.setLong(5, parkingLocation.getCreatorId());
                 return ps;
             }
         },keyHolder);
         parkingLocation.setId((Long) keyHolder.getKeys().get("id"));
         return parkingLocation;
+    }
+
+    public void delete(final Long locationId) {
+        this.jdbcTemplate.update(new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection connection)
+                    throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(DELETE_LOCATION);
+                ps.setLong(1, locationId);
+                return ps;
+            }
+        });
     }
 }

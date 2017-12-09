@@ -26,4 +26,8 @@ public class FavouritesService {
     public void delete(FavouriteLocation favouriteLocation) {
         favouritesDao.delete(favouriteLocation);
     }
+
+    public void delete(Long locationId) {
+        favouritesDao.delete(locationId);
+    }
 }

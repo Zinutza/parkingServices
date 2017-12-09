@@ -16,6 +16,9 @@ public class ParkingLocationsService {
     @Autowired
     private ParkingLocationDao parkingLocationDao;
 
+    @Autowired
+    private FavouritesService favouritesService;
+
     public List<ParkingLocation> queryParkingByLocation(Double latitude, Double longitude) {
         return queryParkingByLocationAndPrecision(latitude, longitude, DEFAULT_PRECISION);
     }
@@ -31,5 +34,10 @@ public class ParkingLocationsService {
 
     public ParkingLocation create(ParkingLocation parkingLocation) {
         return parkingLocationDao.create(parkingLocation);
+    }
+
+    public void delete(Long locationId) {
+        favouritesService.delete(locationId);
+        parkingLocationDao.delete(locationId);
     }
 }

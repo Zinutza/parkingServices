@@ -10,8 +10,8 @@ import org.zina.services.ParkingLocationsService;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class ParkingLocationsController {
@@ -34,5 +34,13 @@ public class ParkingLocationsController {
     public ResponseEntity create(@RequestBody ParkingLocation parkingLocation) {
         ParkingLocation createdParkingLocation = parkingLocationsService.create(parkingLocation);
         return new ResponseEntity<ParkingLocation>(createdParkingLocation, CREATED);
+    }
+
+    // Create new parking location
+    @ResponseBody
+    @RequestMapping(value = "parkinglocations/{locationId}", method = DELETE)
+    public ResponseEntity delete(@PathVariable("locationId") Long locationId) {
+        parkingLocationsService.delete(locationId);
+        return new ResponseEntity(NO_CONTENT);
     }
 }
